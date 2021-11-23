@@ -2,16 +2,23 @@ import Home from "./pages/Home";
 import "./App.css";
 import { Route, Routes } from "react-router";
 import { BrowserRouter } from "react-router-dom";
+import Navbar from "./components/navbar/Navbar";
+import RegisterPage from "./pages/RegisterPage";
+import Login from "./components/login/Login";
+import AuthProvider from "./context/auth";
 
 function App() {
   return (
-    <BrowserRouter>
-      <div className="App">
+    <AuthProvider>
+      <BrowserRouter>
+        <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/register" element={<RegisterPage />} />
+          <Route path="/login" element={<Login />} />
         </Routes>
-      </div>
-    </BrowserRouter>
+      </BrowserRouter>
+    </AuthProvider>
   );
 }
 
