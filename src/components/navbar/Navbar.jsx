@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { auth, db } from "../../firebase";
 import { signOut } from "firebase/auth";
 import { updateDoc, doc } from "firebase/firestore";
@@ -7,12 +7,14 @@ import { AuthContext } from "../../context/auth";
 import "./navbar.css";
 
 const Navbar = () => {
+  const navigate = useNavigate();
   const { user } = useContext(AuthContext);
   const handleSignout = async () => {
     await updateDoc(doc(db, "users", auth.currentUser.uid), {
       isOnline: false,
     });
     await signOut(auth);
+    navigate("/login", { replace: true });
   };
   return (
     <nav>
